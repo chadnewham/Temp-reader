@@ -21,7 +21,7 @@ def clearDb():
     return render_template('delete_all.html', msg = msg)
     con.close()
 
-@app.route('/view', methods = ['POST', 'GET'])
+@app.route('/view', methods = ['GET'])
 def viewData():
     if request.method == 'GET':
     	con = sql.connect('temp.db')
@@ -29,10 +29,7 @@ def viewData():
     	cur.execute("SELECT * FROM readings")
     	vals = cur.fetchall()
 	json_data = json.dumps(vals)
-	#description = [("temp", "number"), ("time", "number")]
-	#data_table = gviz_api.DataTable(description)
-	#data_table.LoadData(json_data)
-    	return render_template('shit.html', json_data = json_data)
+    	return render_template('view_Data.html', json_data = json_data)
     	con.close()	
 
 @app.route('/home', methods = ['POST', 'GET'])
