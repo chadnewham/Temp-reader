@@ -1,0 +1,33 @@
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+ <script>
+ google.charts.load('current', {packages: ['corechart', 'line']});
+google.charts.setOnLoadCallback(drawBackgroundColor);
+
+function drawBackgroundColor() {
+     var data = new google.visualization.DataTable();
+     data.addColumn('number', 'Time');
+     data.addColumn('number', 'Temp');
+     
+     JSON.parse('{{ json_data|tojson|safe }}');
+     var rows = {{ json_data }};
+   
+     data.addRows(rows);
+
+     var options = {
+       hAxis: {
+         title: 'Time'
+       },
+       vAxis: {
+         title: 'Temp'
+       }
+       
+     };
+
+     var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+     chart.draw(data, options);
+   }
+ 
+ </script>
+ 
+ <div id="chart_div"></div>
